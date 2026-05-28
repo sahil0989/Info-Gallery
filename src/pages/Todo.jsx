@@ -128,7 +128,7 @@ const Todo = () => {
       ========================= */}
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8">
-          Firebase Todo App
+          Infosys Conversion
         </h1>
 
         {/* =========================
