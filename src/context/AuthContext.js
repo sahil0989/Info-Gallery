@@ -32,10 +32,8 @@ export const AuthProvider = ({ children }) => {
       }));
 
       setAllProducts(data);
-      console.log("Products fetched:", data);
 
     } catch (err) {
-      console.error("Products fetch failed", err);
     } finally {
       setLoadingData(false);
     }

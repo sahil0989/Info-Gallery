@@ -10,12 +10,8 @@ const Home = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        console.log("All Products from Context:", allProducts);
         setProducts(allProducts);
     }, [allProducts]);
-
-
-  console.log("Products :", products);
 
   // =========================
   // PAGINATION
@@ -56,7 +52,6 @@ const Home = () => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
-      console.error("Download failed:", error);
     }
   };
 
