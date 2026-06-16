@@ -3,11 +3,19 @@
 import React, { useEffect, useState } from "react";
 import { Download, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import img1 from "../images/3.jpg";
+import img2 from "../images/2.jpeg";
+import img3 from "../images/1.png";
 
 const Home = () => {
 
     const { allProducts } = useAuth();
     const [products, setProducts] = useState([]);
+    const [defaultImg, setDefaultImg] = useState([img1, img2, img3].map((img, index) => ({
+        id: index,
+        img1: img,
+        image: { url: img },
+    })));
 
     useEffect(() => {
         setProducts(allProducts);
@@ -69,6 +77,42 @@ const Home = () => {
           Explore and download beautiful wallpapers
         </p>
       </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 mb-4 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {defaultImg.map((item, index) => (
+              <div
+                key={item.id || index}
+                className="group relative overflow-hidden rounded-2xl bg-zinc-900 shadow-lg"
+              >
+                {/* IMAGE */}
+                <img
+                  src={item.image?.url}
+                  alt="Wallpaper"
+                  className="w-full h-[220px] object-cover transition duration-500 group-hover:scale-110 cursor-pointer"
+                  onClick={() => setSelectedImage(item.image?.url)}
+                />
+
+                {/* OVERLAY */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4">
+                  {/* VIEW BUTTON */}
+                  <button
+                    onClick={() => setSelectedImage(item.image?.url)}
+                    className="bg-white text-black px-4 py-2 rounded-xl font-semibold hover:scale-105 transition"
+                  >
+                    View
+                  </button>
+
+                  {/* DOWNLOAD BUTTON */}
+                  <button
+                    onClick={() => handleDownload(item.image?.url)}
+                    className="bg-black border border-white px-4 py-2 rounded-xl hover:bg-white hover:text-black transition"
+                  >
+                    <Download size={18} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
 
       {/* =========================
           EMPTY STATE
