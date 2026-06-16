@@ -9,17 +9,16 @@ import img3 from "../images/1.png";
 
 const Home = () => {
 
-    const { allProducts } = useAuth();
-    const [products, setProducts] = useState([]);
-    const [defaultImg, setDefaultImg] = useState([img1, img2, img3].map((img, index) => ({
-        id: index,
-        img1: img,
-        image: { url: img },
-    })));
+  const { allProducts } = useAuth();
+  const [products, setProducts] = useState([]);
+  const defaultImg = [img1, img2, img3].map((img, index) => ({
+    id: index,
+    image: { url: img },
+  }));
 
-    useEffect(() => {
-        setProducts(allProducts);
-    }, [allProducts]);
+  useEffect(() => {
+    setProducts(allProducts);
+  }, [allProducts]);
 
   // =========================
   // PAGINATION
@@ -79,40 +78,40 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 mb-4 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {defaultImg.map((item, index) => (
-              <div
-                key={item.id || index}
-                className="group relative overflow-hidden rounded-2xl bg-zinc-900 shadow-lg"
+        {defaultImg.map((item, index) => (
+          <div
+            key={item.id || index}
+            className="group relative overflow-hidden rounded-2xl bg-zinc-900 shadow-lg"
+          >
+            {/* IMAGE */}
+            <img
+              src={item.image?.url}
+              alt="Wallpaper"
+              className="w-full h-[220px] object-cover transition duration-500 group-hover:scale-110 cursor-pointer"
+              onClick={() => setSelectedImage(item.image?.url)}
+            />
+
+            {/* OVERLAY */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4">
+              {/* VIEW BUTTON */}
+              <button
+                onClick={() => setSelectedImage(item.image?.url)}
+                className="bg-white text-black px-4 py-2 rounded-xl font-semibold hover:scale-105 transition"
               >
-                {/* IMAGE */}
-                <img
-                  src={item.image?.url}
-                  alt="Wallpaper"
-                  className="w-full h-[220px] object-cover transition duration-500 group-hover:scale-110 cursor-pointer"
-                  onClick={() => setSelectedImage(item.image?.url)}
-                />
+                View
+              </button>
 
-                {/* OVERLAY */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4">
-                  {/* VIEW BUTTON */}
-                  <button
-                    onClick={() => setSelectedImage(item.image?.url)}
-                    className="bg-white text-black px-4 py-2 rounded-xl font-semibold hover:scale-105 transition"
-                  >
-                    View
-                  </button>
-
-                  {/* DOWNLOAD BUTTON */}
-                  <button
-                    onClick={() => handleDownload(item.image?.url)}
-                    className="bg-black border border-white px-4 py-2 rounded-xl hover:bg-white hover:text-black transition"
-                  >
-                    <Download size={18} />
-                  </button>
-                </div>
-              </div>
-            ))}
+              {/* DOWNLOAD BUTTON */}
+              <button
+                onClick={() => handleDownload(item.image?.url)}
+                className="bg-black border border-white px-4 py-2 rounded-xl hover:bg-white hover:text-black transition"
+              >
+                <Download size={18} />
+              </button>
+            </div>
           </div>
+        ))}
+      </div>
 
       {/* =========================
           EMPTY STATE
@@ -173,11 +172,10 @@ const Home = () => {
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => prev - 1)}
-                className={`px-4 py-2 rounded-xl flex items-center gap-2 transition ${
-                  currentPage === 1
+                className={`px-4 py-2 rounded-xl flex items-center gap-2 transition ${currentPage === 1
                     ? "bg-zinc-800 text-gray-500 cursor-not-allowed"
                     : "bg-white text-black hover:scale-105"
-                }`}
+                  }`}
               >
                 <ChevronLeft size={18} />
                 Prev
@@ -188,11 +186,10 @@ const Home = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentPage(index + 1)}
-                  className={`w-10 h-10 rounded-xl font-semibold transition ${
-                    currentPage === index + 1
+                  className={`w-10 h-10 rounded-xl font-semibold transition ${currentPage === index + 1
                       ? "bg-white text-black"
                       : "bg-zinc-900 hover:bg-zinc-800"
-                  }`}
+                    }`}
                 >
                   {index + 1}
                 </button>
@@ -202,11 +199,10 @@ const Home = () => {
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage((prev) => prev + 1)}
-                className={`px-4 py-2 rounded-xl flex items-center gap-2 transition ${
-                  currentPage === totalPages
+                className={`px-4 py-2 rounded-xl flex items-center gap-2 transition ${currentPage === totalPages
                     ? "bg-zinc-800 text-gray-500 cursor-not-allowed"
                     : "bg-white text-black hover:scale-105"
-                }`}
+                  }`}
               >
                 Next
                 <ChevronRight size={18} />
